@@ -66,5 +66,27 @@ describe('Student Service', () => {
         });
         expect(mockRepo.findStudentById).toHaveBeenCalledWith(2);
     })
+    it('findStudent delegates to repository', async () => {
+        const student = {
+            id: 1,
+            name: 'John',
+            password: 'secret'
+        };
+        mockRepo.findStudentById.mockResolvedValue(student);
+        const result = await studentService.findStudent(1);
+        expect(result).toEqual(student);
+        expect(mockRepo.findStudentById).toHaveBeenCalledWith(1);
+    })
+    it('deleteStudent delegates to repository', async () => {
+        const student = {
+            id: 3,
+            name: 'John',
+            password: 'secret'
+        };
+        mockRepo.deleteStudent.mockResolvedValue(student);
+        const result = await studentService.deleteStudent(3);
+        expect(result).toEqual(student);
+        expect(mockRepo.deleteStudent).toHaveBeenCalledWith(3);
+    })
 })
 
